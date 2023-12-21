@@ -4,33 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"unicode"
+
+	"github.com/CrutoiAlexandru/advent-23/calibrations"
 )
-
-func intConcat(line string) int {
-	var first, last int
-	var reverse string
-
-	for _, char := range line {
-		reverse = string(char) + reverse
-	}
-
-	for _, char := range line {
-		if unicode.IsDigit(char) {
-			first = int(char - '0')
-			break
-		}
-	}
-
-	for _, char := range reverse {
-		if unicode.IsDigit(char) {
-			last = int(char - '0')
-			break
-		}
-	}
-
-	return first*10 + last
-}
 
 func main() {
 	var sum int
@@ -54,7 +30,8 @@ func main() {
 	}
 
 	for _, line := range lines {
-		sum = intConcat(line) + sum
+		calibration := calibrations.CalibrationsConcat(line)
+		sum = calibration + sum
 	}
 
 	fmt.Println(sum)
