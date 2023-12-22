@@ -1,33 +1,28 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+
+	"github.com/CrutoiAlexandru/advent-23/cubes"
+	"github.com/CrutoiAlexandru/advent-23/reader"
 )
 
 func main() {
-	// var red, green, blue int = 12, 13, 14
-
-	file, err := os.Open("../res/input.txt")
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-
+	var sum int
 	var lines []string
+	var path_to_res string = "../res/input.txt"
 
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-
-	if err := scanner.Err(); err != nil {
-		fmt.Println("Error reading file:", err)
+	lines, err := reader.ReadResources(path_to_res)
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
 
-	fmt.Println(lines)
+	sum, err = cubes.GetGamesMap(lines)
+	if err != nil {
+		fmt.Errorf("error: %w", err)
+		return
+	}
+
+	fmt.Println(sum)
 }
